@@ -9,11 +9,15 @@ import MovieUpdate from "./Movies/MovieUpdate";
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
+  const [shouldUpdate, setShouldUpdate] = useState(false);
 
   const getMovieList = () => {
     axios
       .get("http://localhost:5000/api/movies")
-      .then(res => setMovieList(res.data))
+      .then(res => {
+        setMovieList(res.data)
+        setShouldUpdate(false)
+      })
       .catch(err => console.log(err.response));
   };
 
@@ -23,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     getMovieList();
-  }, []);
+  }, [shouldUpdate]);
 
   return (
     <>
@@ -38,7 +42,7 @@ const App = () => {
       </Route>
 
       <Route path="/update-movie/:id">
-        <MovieUpdate movieList={movieList} setMovieList={setMovieList} />
+        <MovieUpdate movieList={movieList} setMovieList={setMovieList} update={() => setShouldUpdate(true)}/>
       </Route>
     </>
   );

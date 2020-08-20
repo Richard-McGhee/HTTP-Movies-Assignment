@@ -3,7 +3,7 @@ import { Link, useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 const MovieUpdate = (props) => {
-    const { movieList, setMovieList } = props
+    const { movieList, setMovieList, update } = props
     const params = useParams()
     const { push } = useHistory()
     const initState = {
@@ -34,7 +34,12 @@ const MovieUpdate = (props) => {
     }
     const handleSubmit = evt => {
         evt.preventDefault()
-
+        axios.put(`http://localhost:5000/api/movies/${params.id}`, newInfo)
+        .then(res => {
+            console.log(res)
+            update()
+        })
+        .catch(err => console.dir(err))
         push(`/movies/${params.id}`)
     }
 
