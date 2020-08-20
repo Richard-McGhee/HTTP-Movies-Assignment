@@ -41,6 +41,7 @@ const MovieUpdate = (props) => {
         })
         .catch(err => console.dir(err))
         push(`/movies/${params.id}`)
+        window.location.reload()
     }
 
     if(!newInfo) {

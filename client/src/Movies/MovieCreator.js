@@ -9,7 +9,7 @@ const MovieCreator = ({ update }) => {
         title: "",
         director: "",
         metascore: 0,
-        stars: []
+        stars: ""
     }
     const [newMovie, setNewMovie] = useState(initState)
 
@@ -23,12 +23,18 @@ const MovieCreator = ({ update }) => {
         const newStar = evt.target.value
         setNewMovie({
             ...newMovie,
-            stars: [...newMovie.stars, newStar]
+            stars: evt.target.value
         })
     }
     const handleSubmit = evt => {
         evt.preventDefault()
-        axios.post("http://localhost:5000/api/movies/", newMovie)
+        const formattedMovie = {
+            ...newMovie,
+            stars: newMovie.stars.split(",")
+        }
+        console.log(formattedMovie)
+
+        axios.post("http://localhost:5000/api/movies/", formattedMovie)
         .then(res => {
             console.log(res)
             update()
