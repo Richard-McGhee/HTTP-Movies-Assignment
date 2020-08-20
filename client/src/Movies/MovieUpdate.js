@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 const MovieUpdate = (props) => {
-    const { movieList, setMovieList, update } = props
+    const { update } = props
     const params = useParams()
     const { push } = useHistory()
     const initState = {
